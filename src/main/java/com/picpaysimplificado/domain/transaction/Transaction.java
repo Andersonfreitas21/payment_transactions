@@ -8,10 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,7 +16,7 @@ import java.time.LocalDateTime;
 @Entity(name = "transactions")
 @Table(name = "transactions")
 @Getter
-@Setter
+@Builder
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Transaction {
@@ -28,7 +25,7 @@ public class Transaction {
     private Long id;
     private BigDecimal amount;
     @ManyToOne
-    @JoinColumn(name = "sender_id")
+    @JoinColumn(name = "senderId")
     private User sender;
     @ManyToOne
     @JoinColumn(name = "receiver_id")
