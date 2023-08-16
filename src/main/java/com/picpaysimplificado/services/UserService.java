@@ -1,5 +1,6 @@
 package com.picpaysimplificado.services;
 
+import com.picpaysimplificado.domain.dtos.UserDTO;
 import com.picpaysimplificado.domain.user.User;
 import com.picpaysimplificado.domain.user.UserType;
 import com.picpaysimplificado.exception.ResourceNotFoundException;
@@ -36,5 +37,11 @@ public class UserService {
 
     public void save(User user){
         this.userRepository.save(user);
+    }
+
+    public User createUser(UserDTO user) {
+        User newUser = new User(user);
+        newUser = this.userRepository.save(newUser);
+        return newUser;
     }
 }
