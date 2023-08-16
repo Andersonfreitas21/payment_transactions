@@ -1,13 +1,20 @@
 package com.picpaysimplificado.domain.dtos;
 
 import com.picpaysimplificado.domain.user.UserType;
-import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record UserDTO(String firstName,
-        String lastName,
-        String document,
-        String email,
-        String password,
-        BigDecimal balance,
-        UserType userType) {
+import java.math.BigDecimal;
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class UserDTO {
+    private String firstName;
+    private String lastName;
+    private String document;
+    private String email;
+    private String password;
+    private BigDecimal balance;
+    private UserType userType;
 }

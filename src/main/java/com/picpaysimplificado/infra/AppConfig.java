@@ -20,6 +20,7 @@ public class AppConfig {
     }
 
     @Bean
+    @Qualifier("modelMapper")
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }

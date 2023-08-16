@@ -24,13 +24,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "FIRST_NAME")
     private String firstName;
+    @Column(name = "LAST_NAME")
     private String lastName;
-    @Column(unique = true)
+    @Column(name = "DOCUMENT",unique = true)
     private String document;
-    @Column(unique = true)
+    @Column(name="EMAIL",unique = true)
     private String email;
+    @Column(name = "PASSWORD")
     private String password;
+    @Column(name = "BALANCE")
     private BigDecimal balance;
     @Enumerated(EnumType.STRING)
     private UserType userType;

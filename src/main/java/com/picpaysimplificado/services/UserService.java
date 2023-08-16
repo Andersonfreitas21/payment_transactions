@@ -5,18 +5,22 @@ import com.picpaysimplificado.domain.user.User;
 import com.picpaysimplificado.domain.user.UserType;
 import com.picpaysimplificado.exception.ResourceNotFoundException;
 import com.picpaysimplificado.repositories.UserRepository;
-import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
 @Service
-@AllArgsConstructor
 public class UserService {
-    private static final ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper;
 
     private final UserRepository userRepository;
+
+    public UserService(@Qualifier("modelMapper") ModelMapper modelMapper, UserRepository userRepository) {
+        this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
+    }
 
     public void validateTransaction(User sender, BigDecimal amount) throws Throwable {
         if (sender.getUserType() == UserType.MERCHANT) {
@@ -29,7 +33,7 @@ public class UserService {
     }
 
     public User findUserById(Long id) {
-        var existingUser = this.userRepository.findById(id);
+        var existingUser = userRepository.findById(id);
 
         if (existingUser.isEmpty()) {
             throw new ResourceNotFoundException("user not found");
@@ -37,12 +41,12 @@ public class UserService {
         return existingUser.get();
     }
 
-    public void save(User user) {
-        this.userRepository.save(user);
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
     public User createUser(UserDTO user) {
-        return userRepository.save(convertToEntity(user));
+        return save(convertToEntity(user));
     }
 
     private User convertToEntity(UserDTO userDTO) {
