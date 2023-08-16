@@ -17,8 +17,8 @@ import java.math.BigDecimal;
 @Table(name = "users")
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class User {
     @Id
@@ -34,16 +34,4 @@ public class User {
     private BigDecimal balance;
     @Enumerated(EnumType.STRING)
     private UserType userType;
-
-    public User(UserDTO user) {
-        User.builder()
-                .firstName(user.firstName())
-                .lastName(user.lastName())
-                .balance(user.balance())
-                .userType(user.userType())
-                .email(user.email())
-                .document(user.document())
-                .password(user.password())
-                .build();
-    }
 }

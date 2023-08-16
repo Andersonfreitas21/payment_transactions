@@ -6,6 +6,7 @@ import com.picpaysimplificado.domain.user.UserType;
 import com.picpaysimplificado.exception.ResourceNotFoundException;
 import com.picpaysimplificado.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
 @Service
 @AllArgsConstructor
 public class UserService {
+    private static final ModelMapper modelMapper = new ModelMapper();
 
     private final UserRepository userRepository;
 
@@ -35,13 +37,15 @@ public class UserService {
         return existingUser.get();
     }
 
-    public void save(User user){
+    public void save(User user) {
         this.userRepository.save(user);
     }
 
     public User createUser(UserDTO user) {
-        User newUser = new User(user);
-        newUser = this.userRepository.save(newUser);
-        return newUser;
+        return userRepository.save(convertToEntity(user));
+    }
+
+    private User convertToEntity(UserDTO userDTO) {
+        return modelMapper.map(userDTO, User.class);
     }
 }
