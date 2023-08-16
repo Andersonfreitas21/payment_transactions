@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 @Entity(name = "users")
 @Table(name = "users")
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
