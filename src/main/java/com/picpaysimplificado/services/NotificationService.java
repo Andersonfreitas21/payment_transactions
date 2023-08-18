@@ -17,7 +17,7 @@ import java.util.Objects;
 public class NotificationService {
 
     private static final Logger log = LoggerFactory.getLogger(NotificationService.class);
-    private static final String URL_NOTIFY = "http://o4d9z.mocklab.io/notify";
+    private static final String URL_NOTIFY = "https://o368l.wiremockapi.cloud/notify";
     private final RestTemplate restTemplate;
 
     public void sendNotification(User user, String message) throws Exception {
