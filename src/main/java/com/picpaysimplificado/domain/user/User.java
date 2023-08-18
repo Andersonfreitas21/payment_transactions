@@ -1,6 +1,5 @@
 package com.picpaysimplificado.domain.user;
 
-import com.picpaysimplificado.domain.dtos.UserDTO;
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -11,6 +10,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 import lombok.*;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 
 @Entity(name = "users")
@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class User {
+public class User implements Type {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
