@@ -1,6 +1,6 @@
 package com.picpaysimplificado.services;
 
-import com.picpaysimplificado.domain.dtos.TransactionDTO;
+import com.picpaysimplificado.domain.transaction.dto.request.TransactionDTO;
 import com.picpaysimplificado.domain.transaction.Transaction;
 import com.picpaysimplificado.domain.user.User;
 import com.picpaysimplificado.repositories.TransactionRepository;
@@ -24,8 +24,8 @@ public class TransactionService {
     private static RestTemplate restTemplate;
 
     public void createTransaction(TransactionDTO transactionDto) throws Exception {
-        User sender = userService.findUserById(transactionDto.senderId());
-        User receiver = userService.findUserById(transactionDto.receiveId());
+        User sender = userService.getUserById(transactionDto.senderId());
+        User receiver = userService.getUserById(transactionDto.receiveId());
 
         boolean isAuthorized = authorizeTransaction();
 
