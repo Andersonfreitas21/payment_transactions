@@ -14,4 +14,13 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     public final ResponseEntity<ApiResponse> handleResourceNotFoundException(ResourceNotFoundException exception){
         return new ResponseEntity<>(new ApiResponse(exception.getMessage(), LocalDateTime.now()), HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(InvalidAuthorizationException.class)
+    public final ResponseEntity<ApiResponse> handleInvalidAuthenticationException(InvalidAuthorizationException exception){
+        return new ResponseEntity<>(new ApiResponse(exception.getMessage(), LocalDateTime.now()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(NotificationIsDownException.class)
+    public final ResponseEntity<ApiResponse> handleNotificationIsDownException(NotificationIsDownException exception){
+        return new ResponseEntity<>(new ApiResponse(exception.getMessage(), LocalDateTime.now()), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
