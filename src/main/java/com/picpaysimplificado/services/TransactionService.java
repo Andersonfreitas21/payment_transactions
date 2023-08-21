@@ -25,33 +25,35 @@ public class TransactionService {
     private final RestTemplate restTemplate;
     private final NotificationService notificationService;
 
-    public Transaction createTransaction(TransactionDTO transactionDto) {
-        User sender = userService.getUserById(transactionDto.senderId());
-        User receiver = userService.getUserById(transactionDto.receiverId());
+    public Transaction createTransaction(TransactionDTO transaction) {
+        User sender = userService.getUserById(transaction.senderId());
+        User receiver = userService.getUserById(transaction.receiverId());
+
+        userService.validateTransaction(sender, transaction.value());
 
         boolean isAuthorized = authorizeTransaction();
 
         if (!isAuthorized) {
-            throw new InvalidAuthorizationException("unauthorized transactionDto");
+            throw new InvalidAuthorizationException("unauthorized transaction");
         }
 
-        Transaction transaction = Transaction
+        Transaction transactionResponse = Transaction
                 .builder()
-                .amount(transactionDto.value())
+                .amount(transaction.value())
                 .sender(sender)
                 .receiver(receiver)
                 .timestemp(LocalDateTime.now())
                 .build();
 
-        sender.setBalance(sender.getBalance().subtract(transactionDto.value()));
-        receiver.setBalance(receiver.getBalance().add(transactionDto.value()));
+        sender.setBalance(sender.getBalance().subtract(transaction.value()));
+        receiver.setBalance(receiver.getBalance().add(transaction.value()));
 
-        repository.save(transaction);
+        repository.save(transactionResponse);
         userService.saveAll(List.of(sender, receiver));
 
         notificationService.sendNotification(sender, "Successfully completed transaction");
         notificationService.sendNotification(receiver, "Successfully received transaction");
-        return transaction;
+        return transactionResponse;
     }
 
     public boolean authorizeTransaction() {
