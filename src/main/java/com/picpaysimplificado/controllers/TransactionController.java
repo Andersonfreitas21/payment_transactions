@@ -1,5 +1,6 @@
 package com.picpaysimplificado.controllers;
 
+import com.picpaysimplificado.domain.transaction.Transaction;
 import com.picpaysimplificado.domain.transaction.dto.request.TransactionDTO;
 import com.picpaysimplificado.services.TransactionService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class TransactionController {
     private final TransactionService service;
 
     @PostMapping
-    public ResponseEntity<Object> createTransaction(@RequestBody TransactionDTO transaction) {
+    public ResponseEntity<Transaction> createTransaction(@RequestBody TransactionDTO transaction) {
         return ResponseEntity.ok().body(service.createTransaction(transaction));
     }
 }

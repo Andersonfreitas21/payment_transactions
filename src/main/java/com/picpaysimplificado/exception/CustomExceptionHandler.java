@@ -23,4 +23,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     public final ResponseEntity<ApiResponse> handleNotificationIsDownException(NotificationIsDownException exception){
         return new ResponseEntity<>(new ApiResponse(exception.getMessage(), LocalDateTime.now()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @ExceptionHandler(ValueMismatchException.class)
+    public final ResponseEntity<ApiResponse> handleValueMismatchException(ValueMismatchException exception){
+        return new ResponseEntity<>(new ApiResponse(exception.getMessage(), LocalDateTime.now()), HttpStatus.BAD_REQUEST);
+    }
 }
