@@ -8,8 +8,10 @@ import com.picpaysimplificado.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -43,6 +45,10 @@ public class UserService {
 
     public User save(User user) {
         return userRepository.save(user);
+    }
+    @Transactional
+    public void saveAll(List<User> users) {
+        userRepository.saveAllAndFlush(users);
     }
 
     public User createUser(UserDTO user) {
