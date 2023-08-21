@@ -26,7 +26,7 @@ public class NotificationService {
         NotificationDTO notificationRequest = new NotificationDTO(email, message);
 
         ResponseEntity<String> notificationResponse = restTemplate.postForEntity(URL_NOTIFY, notificationRequest, String.class);
-        log.info("Info log message " + Objects.requireNonNull(notificationResponse.getBody()).equalsIgnoreCase("message"));
+        log.info(notificationResponse.getBody());
 
         if (!(notificationResponse.getStatusCode() == HttpStatus.OK)) {
             log.error("Serviço de notificação está fora do ar");
