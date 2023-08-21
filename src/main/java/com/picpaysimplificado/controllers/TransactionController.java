@@ -1,6 +1,6 @@
 package com.picpaysimplificado.controllers;
 
-import com.picpaysimplificado.domain.dtos.TransactionDTO;
+import com.picpaysimplificado.domain.transaction.dto.request.TransactionDTO;
 import com.picpaysimplificado.services.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
