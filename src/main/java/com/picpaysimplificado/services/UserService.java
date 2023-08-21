@@ -33,7 +33,7 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("user not found"));
     }
 
-    public void validateTransaction(User sender, BigDecimal amount) throws Throwable {
+    public void validateTransaction(User sender, BigDecimal amount) {
         if (sender.getUserType() == UserType.MERCHANT) {
             throw new InvalidAuthenticationException("User is not authorized to perform transaction");
         }
