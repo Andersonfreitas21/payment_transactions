@@ -10,6 +10,7 @@ import com.picpaysimplificado.exception.ValueMismatchException;
 import com.picpaysimplificado.repositories.UserRepository;
 import com.picpaysimplificado.util.Util;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -45,6 +46,10 @@ public class UserService {
 
     public User save(User user) {
         return userRepository.save(user);
+    }
+    @Transactional
+    public void saveAll(List<User> users) {
+        userRepository.saveAllAndFlush(users);
     }
 
     public User createUser(UserRequestDTO user) {
