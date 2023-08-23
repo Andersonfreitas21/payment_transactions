@@ -30,7 +30,150 @@ As seguintes tecnologias foram utilizadas no desenvolvimento da API Rest do proj
 
 - **[Java 17](https://www.oracle.com/java)**
 - **[Spring Boot 3](https://spring.io/projects/spring-boot)**
+- **[Swagger OpenAPI 3](https://swagger.io/specification/)**
 - **[Maven](https://maven.apache.org)**
 - **[MySQL](https://www.mysql.com)**
 - **[Hibernate](https://hibernate.org)**
 - **[Lombok](https://projectlombok.org)**
+
+## Documentação da API
+![User controller](https://github.com/Andersonfreitas21/files/blob/main/Captura%20de%20tela%20de%202023-08-23%2016-47-15.png)
+### Users
+#### - Criar um usuário
+
+```http
+  POST /api/v1/users
+```
+| Parâmetro   | Tipo     | Descrição                                 |
+|:------------|:---------|:------------------------------------------|
+| `firstName` | `string` | **Obrigatório**. Primeiro nome do usuário |
+| `lastName`  | `string` | Segundo nome do usuário                   |
+| `document`  | `string` | **Obrigatório**. Documento do usuário     |
+| `password`  | `string` | Senha de acesso                           |
+| `balance`   | `long`   | **Obrigatório**. Valor da conta           |
+| `userType`  | `string` | **Obrigatório**. COMMON ou MERCHANT       |
+
+#### - Retorna todos os usuários
+```http
+  GET /api/v1/users
+```
+#### Resposta
+```bash
+[
+  {
+    "id": 0,
+    "firstName": "string",
+    "lastName": "string",
+    "document": "string",
+    "email": "string",
+    "balance": 0,
+    "userType": "COMMON"
+  }
+]
+```
+#### - Retorna usuário por Id
+
+```http
+  GET /api/v1/users/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                       |
+| :---------- | :--------- |:--------------------------------|
+| `id`      | `string` | **Obrigatório**. Id do usuário |
+#### Resposta
+```bash
+{
+    "id": 0,
+    "firstName": "string",
+    "lastName": "string",
+    "document": "string",
+    "email": "string",
+    "balance": 0,
+    "userType": "COMMON"
+}
+```  
+#### - Atualiza um usuário por Id
+
+```http
+  PUT /api/v1/users/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                       |
+| :---------- | :--------- |:--------------------------------|
+| `id`      | `string` | **Obrigatório**. Id do usuário |
+#### Body
+```bash
+{
+    "firstName": "string",
+    "lastName": "string",
+    "document": "string",
+    "email": "string",
+    "balance": 0,
+    "userType": "COMMON"
+}
+```
+
+#### Resposta
+```bash
+{
+    "id": 0,
+    "firstName": "string",
+    "lastName": "string",
+    "document": "string",
+    "email": "string",
+    "balance": 0,
+    "userType": "COMMON"
+}
+```
+#### - Deleta um usuário por Id
+
+```http
+  DELETE /api/v1/users/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                       |
+| :---------- | :--------- |:--------------------------------|
+| `id`      | `string` | **Obrigatório**. Id do usuário |
+
+### Transactions
+![Transaction controller](https://github.com/Andersonfreitas21/files/blob/main/doc_swagger-transactions.png)
+#### - Criar uma transação
+```http
+  POST /api/v1/transactions
+```
+
+| Parâmetro    | Tipo   | Descrição                                              |
+|:-------------|:-------|:-------------------------------------------------------|
+| `value`      | `long` | **Obrigatório**. Valor da transação                    |
+| `senderId`   | `long` | **Obrigatório**. Id do usuário que enviará o valor     |
+| `receiverId` | `long` | **Obrigatório**. Id do usuário que irá receber o valor |
+#### Resposta
+```bash
+{
+  "id": 0,
+  "amount": 0,
+  "sender": {
+    "id": 0,
+    "firstName": "string",
+    "lastName": "string",
+    "document": "string",
+    "email": "string",
+    "password": "string",
+    "balance": 0,
+    "userType": "COMMON",
+    "typeName": "string"
+  },
+  "receiver": {
+    "id": 0,
+    "firstName": "string",
+    "lastName": "string",
+    "document": "string",
+    "email": "string",
+    "password": "string",
+    "balance": 0,
+    "userType": "COMMON",
+    "typeName": "string"
+  },
+  "timestemp": "2023-08-23T20:10:59.399Z"
+}
+```

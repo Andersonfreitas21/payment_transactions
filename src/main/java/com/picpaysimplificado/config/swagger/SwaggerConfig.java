@@ -36,9 +36,25 @@ public class SwaggerConfig {
     private String version;
 
     @Bean
-    public GroupedOpenApi httpApi() {
+    public GroupedOpenApi userOpenApi() {
         return GroupedOpenApi.builder()
-                .group("http")
+                .group("users")
+                .pathsToMatch("/api/v1/users/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi transactionOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("transactions")
+                .pathsToMatch("/api/v1/transactions/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi publicOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("public")
                 .pathsToMatch("/**")
                 .build();
     }
